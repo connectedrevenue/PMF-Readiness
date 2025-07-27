@@ -601,9 +601,9 @@
         // Top tier: strong PMF signals with custom tagline, message, and call to action
         title = '🟢 Strong PMF Signals';
         // Provide a descriptive message about retention, ICP fit and demand
-        message = 'You’re showing consistent retention, clear ICP fit, and real demand.';
+        message = 'Your product is resonating. You're seeing strong retention, clear ICP alignment, and true demand. Now it's about disciplined, intentional growth.';
         // Additional tagline for top scores
-        var tagline = 'You’ve Got the Signals. Now Let’s Scale With Precision.';
+        var tagline = 'You’ve Hit PMF. Time to Scale With Precision.';
         ctaText = 'Plan Your Scaling Strategy';
         // Direct link to schedule a scaling strategy call
         ctaLink = 'https://contact.connectedrevenue.ai/#schedule';
@@ -612,8 +612,8 @@
         // Mid tier: partial PMF with custom tagline, message, and call to action
         title = '🟡 Partial PMF';
         // Tagline to encourage refinement towards full PMF (corrected punctuation)
-        var tagline = 'You’re Close — But PMF Isn’t Quite Locked In.';
-        message = 'You’ve found a spark — but gaps in ICP, retention, or growth signals are holding you back.';
+        var tagline = 'You’re Close, But PMF Isn’t Quite Locked.';
+        message = 'You’ve found initial traction, but gaps in ICP clarity, retention, or messaging are slowing you down. PMF is within reach—you just need to tighten the fit.';
         ctaText = 'Schedule a PMF Review Session';
         // Use the same scheduling link for PMF review
         ctaLink = 'https://contact.connectedrevenue.ai/#schedule';
@@ -622,8 +622,8 @@
         // Bottom tier: pre-PMF warning with custom tagline, message, and call to action
         title = '🔴 Pre-PMF Warning';
         // Tagline to caution against premature scaling
-        var tagline = 'Don’t Scale Yet. You’re Still Finding Fit.';
-        message = 'You may be validating the wrong segment — or chasing traction without alignment.';
+        var tagline = 'Don’t Scale Yet, Product-Market Fit Is Missing.';
+        message = 'You may be targeting the wrong audience or misreading signals. Scaling now risks wasted time and spend. Let’s realign and get you on track.';
         ctaText = 'Book a Free Diagnostic Call';
         // Use the scheduling link for diagnostic call
         ctaLink = 'https://contact.connectedrevenue.ai/#schedule';
@@ -671,11 +671,11 @@
       ctaButton.innerHTML = `<a href="${results.ctaLink}" target="_blank">${results.ctaText}</a>`;
       // Adjust result copy for the download section based on the result type.  Remove the “Want a copy of your score?” text entirely.
       if (results.title === '🟢 Strong PMF Signals') {
-        emailLabel.textContent = 'Share with your team or investors, and work with us on your GTM.';
+        emailLabel.textContent = 'Download your results to align your team and investors—and let’s build your GTM together.';
       } else if (results.title === '🟡 Partial PMF') {
-        emailLabel.textContent = 'Let\u2019s dig in together and turn signal into momentum.';
+        emailLabel.textContent = 'Let’s uncover what’s working, fix what’s not, and convert sparks into sustainable momentum.';
       } else if (results.title === '🔴 Pre-PMF Warning') {
-        emailLabel.textContent = 'We\u2019ll map your blind spots and help you find traction that sticks.';
+        emailLabel.textContent = 'We’ll help identify blind spots, validate assumptions, and create a clearer path to traction.';
       } else {
         // Generic message for any other scenario
         emailLabel.textContent = 'Get your PMF results delivered to your inbox.';
