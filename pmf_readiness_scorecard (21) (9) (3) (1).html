@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PMF Readiness Scorecard</title>
+  <!-- Import DM Sans and Poppins fonts from Google Fonts to mirror the Connected Revenue site -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700&family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    /* Basic reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'DM Sans', 'Inter', sans-serif;
+    }
+    body {
+      background: #f9f9fb;
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 40px 20px;
+      min-height: 100vh;
+    }
+    .scorecard {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      max-width: 700px;
+      width: 100%;
+      padding: 30px 40px;
+      animation: fadeIn 0.6s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    h1 {
+      margin-bottom: 10px;
+      font-size: 2rem;
+      line-height: 1.3;
+      font-weight: 700;
+      color: #1F1235;
+    }
+    p.intro {
+      margin-bottom: 25px;
+      color: #555;
+    }
+    .question {
+      margin-bottom: 30px;
+    }
+
+    /* Welcome page styling */
+    .welcome-page {
+      text-align: center;
+    }
+    .welcome-page h1 {
+      font-size: 2rem;
+      margin-bottom: 0.75rem;
+      font-weight: 700;
+      color: #1F1235;
+    }
+    .welcome-page .intro {
+      font-size: 1rem;
+      /* Match Connected Revenue styling: light grey text */
+      color: #A0A7BD;
+      margin-bottom: 1rem;
+      /* Always render the introductory tagline in uppercase */
+      text-transform: uppercase;
+    }
+    .welcome-page h1, .welcome-page .intro {
+      text-align: left;
+    }
+    .welcome-page .instructions {
+      text-align: left;
+    }
+    .instructions p {
+      margin-bottom: 0.75rem;
+      color: #555;
+    }
+    .instructions ul {
+      /* remove default bullets and prepare for custom check icons */
+      list-style: none;
+      margin-bottom: 0.75rem;
+      padding-left: 0;
+    }
+    .instructions li {
+      position: relative;
+      margin-bottom: 0.5rem;
+      /* provide left padding so the check icon doesn't overlap the text */
+      padding-left: 2rem;
+    }
+    /* Custom checkmark bullets for instructions list */
+    .instructions li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      /* vertically align the icon with the text */
+      top: 0.1rem;
+      width: 1.2rem;
+      height: 1.2rem;
+      border-radius: 50%;
+      /* Updated to green check color */
+      border: 1px solid #6FCF97;
+      background-image: url("data:image/svg+xml;charset=utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20x%3D%220px%22%20y%3D%220px%22%20viewBox%3D%220%200%2040%2040%22%3E%3Cpath%20d%3D%22M37.9%2C10.6l-3.2-3.2c-0.4-0.4-1-0.7-1.6-0.7c-0.6%2C0-1.2%2C0.2-1.6%2C0.7L15.9%2C23l-7-7c-0.4-0.4-1-0.7-1.6-0.7S6.1%2C15.6%2C5.6%2C16%20l-3.2%2C3.2c-0.4%2C0.4-0.7%2C1-0.7%2C1.6S2%2C22%2C2.4%2C22.5l8.6%2C8.6l3.2%2C3.2c0.4%2C0.4%2C1%2C0.7%2C1.6%2C0.7c0.6%2C0%2C1.2-0.2%2C1.6-0.7l3.2-3.2l17.2-17.2%20c0.4-0.4%2C0.7-1%2C0.7-1.6C38.6%2C11.6%2C38.4%2C11.1%2C37.9%2C10.6z%22%20fill%3D%22%236FCF97%22%20%2F%3E%3C%2Fsvg%3E");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 55%;
+    }
+    .button-wrapper.center {
+      justify-content: center;
+    }
+
+    /* Progress bar styling */
+    .progress-bar {
+      width: 100%;
+      height: 8px;
+      background: #f3eefc;
+      border-radius: 4px;
+      margin-bottom: 1.5rem;
+      overflow: hidden;
+    }
+    .progress-bar .progress {
+      height: 100%;
+      width: 0;
+      background: #CFBBF0;
+      border-radius: 4px;
+      transition: width 0.3s ease;
+    }
+
+    /* Secondary button styling for Back */
+    .button-wrapper button.secondary {
+      background: #ffffff;
+      border: 2px solid #9333EA;
+      color: #9333EA;
+      border-radius: 10px;
+      transition: border-color 0.2s ease, color 0.2s ease;
+    }
+    .button-wrapper button.secondary:hover {
+      border-color: #5D1E96;
+      color: #5D1E96;
+    }
+    .question h2 {
+      /* Style question headers to match Connected Revenue's Poppins styling */
+      text-transform: uppercase;
+      color: #A0A7BD;
+      font-family: 'Poppins', sans-serif;
+      letter-spacing: 0.05rem;
+      width: calc(100% + 0.05rem);
+      font-size: 1em;
+      line-height: 1.375;
+      font-weight: 500;
+      margin-bottom: 0.75rem;
+    }
+    /* Style for question paragraphs */
+    .question p {
+      text-align: left;
+      color: #4B4F66;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1em;
+      line-height: 1.375;
+      font-weight: 400;
+    }
+    /* Style for option text */
+    .option span {
+      color: #4B4F66;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1em;
+      line-height: 1.375;
+      font-weight: 400;
+    }
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .option {
+      display: flex;
+      align-items: center;
+      background: #f7f8fc;
+      padding: 10px 15px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s;
+      position: relative;
+      /* left padding to accommodate custom icons */
+      padding-left: 2.5rem;
+    }
+
+    /* Default padding for options without custom icons */
+    .option:not(.icon-check):not(.icon-cross):not(.icon-warning) {
+      padding-left: 2rem;
+    }
+    .option input[type="radio"] {
+      /* Hide default radio appearance while retaining accessibility */
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .option:hover {
+      background: #eceff9;
+    }
+
+    /* Highlight selected option */
+    .option.selected {
+      background: #ece9fb;
+    }
+
+    /* Custom icons for yes/no options */
+    .option.icon-check::before,
+    .option.icon-cross::before {
+      content: "";
+      position: absolute;
+      left: 0.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 1.2rem;
+      height: 1.2rem;
+      border-radius: 50%;
+      /* Border color will be set individually for each icon type */
+      border: 1px solid transparent;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 55%;
+    }
+    .option.icon-check::before {
+      background-image: url("data:image/svg+xml;charset=utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20x%3D%220px%22%20y%3D%220px%22%20viewBox%3D%220%200%2040%2040%22%3E%3Cpath%20d%3D%22M37.9%2C10.6l-3.2-3.2c-0.4-0.4-1-0.7-1.6-0.7c-0.6%2C0-1.2%2C0.2-1.6%2C0.7L15.9%2C23l-7-7c-0.4-0.4-1-0.7-1.6-0.7S6.1%2C15.6%2C5.6%2C16%20l-3.2%2C3.2c-0.4%2C0.4-0.7%2C1-0.7%2C1.6S2%2C22%2C2.4%2C22.5l8.6%2C8.6l3.2%2C3.2c0.4%2C0.4%2C1%2C0.7%2C1.6%2C0.7c0.6%2C0%2C1.2-0.2%2C1.6-0.7l3.2-3.2l17.2-17.2%20c0.4-0.4%2C0.7-1%2C0.7-1.6C38.6%2C11.6%2C38.4%2C11.1%2C37.9%2C10.6z%22%20fill%3D%22%236FCF97%22%20%2F%3E%3C%2Fsvg%3E");
+      /* Match the border color to the green check icon */
+      border: 1px solid #6FCF97;
+    }
+    .option.icon-cross::before {
+      background-image: url("data:image/svg+xml;charset=utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20x%3D%220px%22%20y%3D%220px%22%20viewBox%3D%220%200%2040%2040%22%3E%3Cpath%20d%3D%22M34%2C11.7c0-0.6-0.2-1.2-0.7-1.6l-3.2-3.2c-0.4-0.4-1-0.7-1.6-0.7s-1.2%2C0.2-1.6%2C0.7L20%2C13.8l-6.9-6.9c-0.4-0.4-1-0.7-1.6-0.7%20c-0.6%2C0-1.2%2C0.2-1.6%2C0.7l-3.2%2C3.2c-0.4%2C0.4-0.7%2C1-0.7%2C1.6c0%2C0.6%2C0.2%2C1.2%2C0.7%2C1.6l6.9%2C6.9l-6.9%2C6.9c-0.4%2C0.4-0.7%2C1-0.7%2C1.6%20s0.2%2C1.2%2C0.7%2C1.6l3.2%2C3.2c0.4%2C0.4%2C1%2C0.7%2C1.6%2C0.7c0.6%2C0%2C1.2-0.2%2C1.6-0.7l6.9-6.9l6.9%2C6.9c0.4%2C0.4%2C1%2C0.7%2C1.6%2C0.7s1.2-0.2%2C1.6-0.7%20l3.2-3.2c0.4-0.4%2C0.7-1%2C0.7-1.6s-0.2-1.2-0.7-1.6l-6.9-6.9l6.9-6.9C33.8%2C12.9%2C34%2C12.3%2C34%2C11.7z%22%20fill%3D%22%23F26E6E%22%20%2F%3E%3C%2Fsvg%3E");
+      /* Match the border color to the red cross icon */
+      border: 1px solid #F26E6E;
+    }
+
+    /* Warning icon for 'Sort of' options */
+    .option.icon-warning::before {
+      content: "";
+      position: absolute;
+      left: 0.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 1.2rem;
+      height: 1.2rem;
+      border-radius: 50%;
+      /* Use a CSS border for the circle, just like the other icons */
+      border: 1px solid #F5A623; 
+      /* Use the new, thicker exclamation mark SVG (without a built-in circle) */
+      background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2040%2040%27%3E%3Cpath%20d%3D%27M16%208h8v18h-8z%20M16%2030h8v8h-8z%27%20fill%3D%27%23F5A623%27%2F%3E%3C%2Fsvg%3E");
+      background-repeat: no-repeat;
+      background-position: center;
+      /* Use a consistent background-size to match the others */
+      background-size: 55%; 
+    }
+    .button-wrapper {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+    button {
+      background: #9333EA; /* default purple */
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+    button:hover {
+      background: #5D1E96; /* darker on hover */
+    }
+    .hidden {
+      display: none;
+    }
+    .result-section {
+      display: none;
+      margin-top: 20px;
+    }
+    .result-section h2 {
+      font-size: 1.6rem;
+      margin-bottom: 10px;
+    }
+    .result-section p.score {
+      /* Emphasise the numeric score: use the same light grey as question headers */
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      color: #A0A7BD;
+      /* Display the score text in uppercase for consistency */
+      text-transform: uppercase;
+    }
+    .result-section .cta {
+      margin-top: 20px;
+    }
+    .cta a {
+      text-decoration: none;
+      background: #9333EA;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-weight: 600;
+      /* Ensure CTA occupies full width so it aligns with the download button */
+      display: block;
+      width: 100%;
+      text-align: center;
+    }
+    .cta a:hover {
+      background: #5D1E96;
+    }
+    .email-capture {
+      margin-top: 30px;
+    }
+    .email-capture label {
+      display: block;
+      margin-bottom: 8px;
+      /* Remove default bold styling so only the specified line is bold via <strong> */
+      font-weight: normal;
+    }
+    /* Style for the results download section */
+    .email-capture button {
+      margin-top: 10px;
+      /* Match the secondary/back button styling: white background with purple border */
+      background: #ffffff;
+      border: 2px solid #9333EA;
+      color: #9333EA;
+      border-radius: 10px;
+      padding: 10px 20px;
+      font-weight: 500;
+      /* Ensure the download button spans the full width like the CTA */
+      width: 100%;
+      text-align: center;
+      transition: border-color 0.2s ease, color 0.2s ease;
+    }
+    .email-capture button:hover {
+      border-color: #5D1E96;
+      color: #5D1E96;
+    }
+
+    /* Custom styling for the Start button on the welcome page */
+    .start-button {
+      background-color: #9333EA;
+      color: #ffffff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      border-radius: 10px;
+      font-weight: 500;
+    }
+    .start-button:hover {
+      background-color: #5D1E96;
+    }
+    /* Icon inside buttons */
+    .btn-icon {
+      width: 1.1rem;
+      height: 1.1rem;
+    }
+    .footer-note {
+      margin-top: 15px;
+      font-size: 0.9rem;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+  <div class="scorecard" id="scorecard">
+    <!-- Welcome Page -->
+    <div id="welcome-page" class="welcome-page">
+      <h1>Most Founders Confuse Early Traction with Product‑Market Fit</h1>
+      <p class="intro">Before you scale, make sure your growth is real — not noise.</p>
+      <div class="instructions">
+        <p>You don’t need another advisor telling you to “get to PMF.” You need to know if you’re already there — or wasting time and money chasing false signals.</p>
+        <p>This 2‑minute scorecard helps you diagnose:</p>
+        <ul>
+          <li>If your retention is real</li>
+          <li>If your messaging lands</li>
+          <li>If your growth signals actually matter</li>
+        </ul>
+        <p>No theory. No fluff. Just a score, a benchmark, and what to do next.</p>
+      </div>
+      <div class="button-wrapper center">
+        <button id="start-btn" class="start-button">
+          <!-- Inline SVG icon for right chevron -->
+          <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+            <polyline points="8 5 16 12 8 19"></polyline>
+          </svg>
+          <span>Start the Scorecard</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Question & Progress Container (hidden initially) -->
+    <div id="quiz-section" class="hidden">
+      <!-- Progress Bar -->
+      <div class="progress-bar"><div class="progress" id="progress" style="width: 0%;"></div></div>
+      <!-- Question container, dynamically updated -->
+      <div id="question-container"></div>
+      <!-- Navigation buttons -->
+      <div class="button-wrapper">
+        <button id="back-btn" class="secondary">Back</button>
+        <button id="next-btn">Next</button>
+      </div>
+    </div>
+
+    <!-- Result Section -->
+    <div class="result-section" id="result-section">
+      <h2 id="result-title"></h2>
+      <p class="score" id="score-summary"></p>
+      <p id="result-message"></p>
+      <div class="cta" id="cta-button"></div>
+      <!-- Results download section -->
+      <div class="email-capture" id="email-capture">
+        <!-- The label text will be set dynamically based on the score range -->
+        <label id="email-label"></label>
+        <!-- Button to download the results instead of collecting an email address -->
+        <button id="download-btn">Download Results</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Data model for the scorecard
+    const questions = [
+      {
+        id: 'q1',
+        title: 'Retention & Usage',
+        question: 'Have you had at least 5+ customers renew, refer, or expand usage?',
+        options: [
+          { label: '✅ Yes', value: 1 },
+          { label: '⚠️ Sort of (we’re seeing interest but no growth yet)', value: 0.5 },
+          { label: '❌ No', value: 0 }
+        ]
+      },
+      {
+        id: 'q2',
+        title: 'Product Stickiness',
+        question: 'If you surveyed your users, what % would say they\'d be “very disappointed” if your product disappeared?',
+        options: [
+          { label: '✅ Over 40%', value: 1 },
+          { label: '⚠️ 20–39%', value: 0.5 },
+          { label: '❌ Under 20% or haven\'t surveyed', value: 0 }
+        ]
+      },
+      {
+        id: 'q3',
+        title: 'Organic Demand Signals',
+        question: 'Are you seeing any warm, unsolicited demand (referrals, organic signups, or inbound leads)?',
+        options: [
+          { label: '✅ Yes — we\'re getting it regularly', value: 1 },
+          { label: '⚠️ Some, but not consistently', value: 0.5 },
+          { label: '❌ No — everything is cold outbound or paid', value: 0 }
+        ]
+      },
+      {
+        id: 'q4',
+        title: 'ICP Fit & Conversion',
+        question: 'Are you consistently converting one clear type of customer?',
+        options: [
+          { label: '✅ Yes — we have a defined ICP that converts', value: 1 },
+          { label: '⚠️ Not quite — customers feel scattered', value: 0.5 },
+          { label: '❌ No — still experimenting with who to sell to', value: 0 }
+        ]
+      },
+      {
+        id: 'q5',
+        title: 'Internal Clarity',
+        question: 'Can everyone on your team clearly explain what core problem your product solves — in one sentence?',
+        options: [
+          { label: '✅ Yes', value: 1 },
+          { label: '⚠️ Kind of — depends who you ask', value: 0.5 },
+          { label: '❌ No', value: 0 }
+        ]
+      }
+    ];
+
+    let currentQuestionIndex = 0;
+    let answers = {};
+
+    // DOM references
+    const welcomePage = document.getElementById('welcome-page');
+    const startBtn = document.getElementById('start-btn');
+    const quizSection = document.getElementById('quiz-section');
+    const questionContainer = document.getElementById('question-container');
+    const progressBar = document.getElementById('progress');
+    const backBtn = document.getElementById('back-btn');
+    const nextBtn = document.getElementById('next-btn');
+    const resultSection = document.getElementById('result-section');
+    const resultTitle = document.getElementById('result-title');
+    const resultMessage = document.getElementById('result-message');
+    const scoreSummary = document.getElementById('score-summary');
+    const ctaButton = document.getElementById('cta-button');
+    const emailCapture = document.getElementById('email-capture');
+    // Label used to display messages for downloading results
+    const emailLabel = document.getElementById('email-label');
+    // Button used to download the results file
+    const downloadBtn = document.getElementById('download-btn');
+
+    // Render the first question
+    function renderQuestion(index) {
+      const q = questions[index];
+      if (!q) return;
+      questionContainer.innerHTML = '';
+      const questionDiv = document.createElement('div');
+      questionDiv.classList.add('question');
+      const title = document.createElement('h2');
+      title.textContent = q.title;
+      const questionText = document.createElement('p');
+      questionText.textContent = q.question;
+
+      const optionsContainer = document.createElement('div');
+      optionsContainer.classList.add('options');
+      q.options.forEach((opt) => {
+        const optionDiv = document.createElement('label');
+        optionDiv.classList.add('option');
+        const radio = document.createElement('input');
+        radio.type = 'radio';
+        radio.name = q.id;
+        radio.value = opt.value;
+        radio.dataset.label = opt.label;
+        // Pre-select if previously answered
+        if (answers[q.id] && answers[q.id].value === opt.value) {
+          radio.checked = true;
+        }
+        // Append radio and label text
+        optionDiv.appendChild(radio);
+        const span = document.createElement('span');
+        // Determine if label contains custom icons and adjust accordingly
+        let labelText = opt.label;
+        if (labelText.trim().startsWith('✅')) {
+          optionDiv.classList.add('icon-check');
+          // remove the emoji from the visible text but keep dataset label unchanged
+          labelText = labelText.replace(/^✅\s*/, '');
+        } else if (labelText.trim().startsWith('❌')) {
+          optionDiv.classList.add('icon-cross');
+          labelText = labelText.replace(/^❌\s*/, '');
+        } else if (labelText.trim().startsWith('⚠️')) {
+          optionDiv.classList.add('icon-warning');
+          // remove the warning emoji from the text
+          labelText = labelText.replace(/^⚠️\s*/, '');
+        }
+        span.textContent = labelText;
+        optionDiv.appendChild(span);
+        // Mark this option as selected if its radio is checked
+        if (radio.checked) {
+          optionDiv.classList.add('selected');
+        }
+        // When the option row is clicked, select the radio and update selected state
+        optionDiv.addEventListener('click', function(event) {
+          event.preventDefault();
+          // Unselect all options for this question
+          const optionLabels = optionsContainer.querySelectorAll('.option');
+          optionLabels.forEach(lbl => lbl.classList.remove('selected'));
+          radio.checked = true;
+          optionDiv.classList.add('selected');
+        });
+        optionsContainer.appendChild(optionDiv);
+      });
+
+      questionDiv.appendChild(title);
+      questionDiv.appendChild(questionText);
+      // Add a line break between the question and the options
+      const lineBreak = document.createElement('br');
+      questionDiv.appendChild(lineBreak);
+      questionDiv.appendChild(optionsContainer);
+      questionContainer.appendChild(questionDiv);
+
+      // Update back button visibility and next button text
+      if (index === 0) {
+        backBtn.style.visibility = 'hidden';
+      } else {
+        backBtn.style.visibility = 'visible';
+      }
+      if (index === questions.length - 1) {
+        // Last question: show "See My Results" with check icon
+        nextBtn.innerHTML = `<svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="5 13 9 17 19 7"></polyline></svg><span>See Results</span>`;
+      } else {
+        nextBtn.innerHTML = 'Next';
+      }
+      // Update progress bar
+      const progressPercent = (index / questions.length) * 100;
+      progressBar.style.width = progressPercent + '%';
+    }
+
+    // Validate if an option is selected for the current question
+    function validateAnswer() {
+      const currentQ = questions[currentQuestionIndex];
+      const selectedRadio = document.querySelector(`input[name="${currentQ.id}"]:checked`);
+      return selectedRadio;
+    }
+
+    // Compute result message and CTA based on score
+    function computeResults(totalScore) {
+      let title, message, ctaText, ctaLink;
+      if (totalScore >= 4.0) {
+        // Top tier: strong PMF signals with custom tagline, message, and call to action
+        title = '🟢 Strong PMF Signals';
+        // Provide a descriptive message about retention, ICP fit and demand
+        message = 'You’re showing consistent retention, clear ICP fit, and real demand.';
+        // Additional tagline for top scores
+        var tagline = 'You’ve Got the Signals. Now Let’s Scale With Precision.';
+        ctaText = 'Plan Your Scaling Strategy';
+        // Direct link to schedule a scaling strategy call
+        ctaLink = 'https://contact.connectedrevenue.ai/#schedule';
+        return { title, message, ctaText, ctaLink, tagline };
+      } else if (totalScore >= 2.0) {
+        // Mid tier: partial PMF with custom tagline, message, and call to action
+        title = '🟡 Partial PMF';
+        // Tagline to encourage refinement towards full PMF (corrected punctuation)
+        var tagline = 'You’re Close — But PMF Isn’t Quite Locked In.';
+        message = 'You’ve found a spark — but gaps in ICP, retention, or growth signals are holding you back.';
+        ctaText = 'Schedule a PMF Review Session';
+        // Use the same scheduling link for PMF review
+        ctaLink = 'https://contact.connectedrevenue.ai/#schedule';
+        return { title, message, ctaText, ctaLink, tagline };
+      } else {
+        // Bottom tier: pre-PMF warning with custom tagline, message, and call to action
+        title = '🔴 Pre-PMF Warning';
+        // Tagline to caution against premature scaling
+        var tagline = 'Don’t Scale Yet. You’re Still Finding Fit.';
+        message = 'You may be validating the wrong segment — or chasing traction without alignment.';
+        ctaText = 'Book a Free Diagnostic Call';
+        // Use the scheduling link for diagnostic call
+        ctaLink = 'https://contact.connectedrevenue.ai/#schedule';
+        return { title, message, ctaText, ctaLink, tagline };
+      }
+      // Default return for completeness (should not be reached)
+      return { title, message, ctaText, ctaLink };
+    }
+
+    // Show results
+    function showResults() {
+      // Hide quiz section (progress bar, question container and navigation)
+      quizSection.style.display = 'none';
+
+      // Compute total score from answers
+      let totalScore = 0;
+      Object.keys(answers).forEach((id) => {
+        totalScore += answers[id].value;
+      });
+      const results = computeResults(totalScore);
+      // Set the main heading
+      resultTitle.textContent = results.title;
+      // Remove any previous tagline element
+      const existingTag = document.getElementById('result-tagline');
+      if (existingTag) {
+        existingTag.remove();
+      }
+      // If a tagline is provided, insert it below the score summary rather than the heading
+      if (results.tagline) {
+        const taglineEl = document.createElement('p');
+        taglineEl.id = 'result-tagline';
+        taglineEl.textContent = results.tagline;
+        // basic styling to distinguish tagline
+        taglineEl.style.marginTop = '0.25rem';
+        taglineEl.style.fontWeight = '500';
+        taglineEl.style.color = '#4B4F66';
+        // Place the tagline after the score summary so it always appears beneath the score
+        scoreSummary.insertAdjacentElement('afterend', taglineEl);
+      }
+      // Set the main result message
+      resultMessage.textContent = results.message;
+      // Display the numeric score
+      scoreSummary.textContent = `Your PMF score: ${totalScore.toFixed(1)} / 5`;
+      // Update the CTA button
+      ctaButton.innerHTML = `<a href="${results.ctaLink}" target="_blank">${results.ctaText}</a>`;
+      // Adjust result copy for the download section based on the result type.  Remove the “Want a copy of your score?” text entirely.
+      if (results.title === '🟢 Strong PMF Signals') {
+        emailLabel.textContent = 'Share with your team or investors, and work with us on your GTM.';
+      } else if (results.title === '🟡 Partial PMF') {
+        emailLabel.textContent = 'Let\u2019s dig in together and turn signal into momentum.';
+      } else if (results.title === '🔴 Pre-PMF Warning') {
+        emailLabel.textContent = 'We\u2019ll map your blind spots and help you find traction that sticks.';
+      } else {
+        // Generic message for any other scenario
+        emailLabel.textContent = 'Get your PMF results delivered to your inbox.';
+      }
+      // Finally show the result section
+      resultSection.style.display = 'block';
+    }
+
+    // Click handler for next/submit button
+    nextBtn.addEventListener('click', function() {
+      // Validate answer before proceeding
+      const selected = validateAnswer();
+      if (!selected) {
+        alert('Please select an answer before continuing.');
+        return;
+      }
+      // Save answer to answers object
+      const currentQ = questions[currentQuestionIndex];
+      answers[currentQ.id] = {
+        label: selected.dataset.label,
+        value: parseFloat(selected.value)
+      };
+
+      currentQuestionIndex++;
+      if (currentQuestionIndex < questions.length) {
+        renderQuestion(currentQuestionIndex);
+      } else {
+        // Show results on submit
+        showResults();
+      }
+    });
+
+    // Click handler for back button
+    backBtn.addEventListener('click', function() {
+      if (currentQuestionIndex > 0) {
+        currentQuestionIndex--;
+        renderQuestion(currentQuestionIndex);
+      }
+    });
+
+    // Download results handler: when the download button is clicked, assemble the results and prompt a file download
+    downloadBtn.addEventListener('click', function() {
+      // Prepare lines for the report
+      const lines = [];
+      lines.push('PMF Readiness Scorecard Results');
+      lines.push('');
+      // List each answer with its score
+      Object.keys(answers).forEach(qId => {
+        const questionObj = questions.find(q => q.id === qId);
+        const ans = answers[qId];
+        lines.push(`${questionObj.title}: ${ans.label} (Score: ${ans.value})`);
+      });
+      lines.push('');
+      // Compute total score
+      let totalScoreForFile = 0;
+      Object.keys(answers).forEach(id => {
+        totalScoreForFile += answers[id].value;
+      });
+      lines.push('Total PMF Score: ' + totalScoreForFile.toFixed(1) + ' / 5');
+      // Append result classification and message
+      const resultsData = computeResults(totalScoreForFile);
+      lines.push('Result: ' + resultsData.title);
+      lines.push(resultsData.message);
+      // Append recommended next step
+      lines.push('Next Step: ' + resultsData.ctaText);
+      // Create a blob and trigger download
+      const blob = new Blob([lines.join('\n')], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'pmf-score.txt';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    });
+
+    // Initialize
+    // Start button event: hide welcome page and show quiz
+    startBtn.addEventListener('click', function() {
+      welcomePage.style.display = 'none';
+      quizSection.classList.remove('hidden');
+      // Reset variables in case of restart
+      currentQuestionIndex = 0;
+      answers = {};
+      renderQuestion(currentQuestionIndex);
+    });
+
+    // Initialize: start with welcome page visible
+  </script>
+</body>
+</html>
