@@ -27,7 +27,7 @@
       min-height: 100vh;
     }
     .scorecard {
-      background: ;
+      background: #fff;
       border-radius: 0px;
       box-shadow: 0 0px 0px rgba(0,0,0,0.1);
       max-width: 700px;
@@ -63,6 +63,15 @@
       margin-bottom: 0.75rem;
       font-weight: 700;
       color: #1F1235;
+    }
+    .assessment-title {
+      text-align: left;
+      color: #5D1E96;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1.375em;
+      line-height: 1.125;
+      font-weight: 700;
+      margin-bottom: 1.5rem; /* Spacing below the title */
     }
     .welcome-page .intro {
       font-size: 1rem;
@@ -287,8 +296,13 @@
       margin-top: 0px;
     }
     .result-section h2 {
-      font-size: 1.6rem;
-      margin-bottom: 10px;
+      text-align: left;
+      color: #5D1E96;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1.375em;
+      line-height: 1.125;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
     }
     .result-section p.score {
       /* Emphasise the numeric score: use the same light grey as question headers */
@@ -375,8 +389,9 @@
   <div class="scorecard" id="scorecard">
     <!-- Welcome Page -->
     <div id="welcome-page" class="welcome-page">
-          <div class="instructions">
-          <p>You don’t need another advisor telling you to “get to PMF.” You need to know if you’re there — or chasing the wrong signals.</p>
+      <h2 class="assessment-title">Take The Assessment</h2>
+      <div class="instructions">
+      <p>You don’t need another advisor telling you to “get to PMF.” You need to know if you’re there — or chasing the wrong signals.</p>
         <p>This 2‑minute scorecard helps you diagnose:</p>
         <ul>
           <li>If your retention is real</li>
@@ -391,7 +406,7 @@
           <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
             <polyline points="8 5 16 12 8 19"></polyline>
           </svg>
-          <span>Start the Scorecard</span>
+          <span>Start</span>
         </button>
       </div>
     </div>
@@ -632,7 +647,7 @@
         }
         
         resultMessage.textContent = results.message;
-        scoreSummary.textContent = `Your PMF score: ${totalScore.toFixed(1)} / 5`;
+        scoreSummary.textContent = `Score: ${totalScore.toFixed(1)} / 5`;
         ctaButton.innerHTML = `<a href="${results.ctaLink}" target="_blank">${results.ctaText}</a>`;
         
         if (results.title === '🟢 Strong PMF Signals') {
