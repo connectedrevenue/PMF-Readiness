@@ -65,7 +65,7 @@
       color: #1F1235;
     }
     .assessment-title {
-      text-align: left;
+      text-align: center;
       color: #5D1E96;
       font-family: 'DM Sans', sans-serif;
       font-size: 1.375em;
@@ -296,7 +296,7 @@
       margin-top: 0px;
     }
     .result-section h2 {
-      text-align: left;
+      text-align: center;
       color: #5D1E96;
       font-family: 'DM Sans', sans-serif;
       font-size: 1.375em;
@@ -324,14 +324,18 @@
       font-weight: 600;
       /* Ensure CTA occupies full width so it aligns with the download button */
       display: block;
-      width: 100%;
+      width: 60%;
       text-align: center;
+      margin: 0 auto;
     }
     .cta a:hover {
       background: #5D1E96;
     }
     .email-capture {
       margin-top: 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
     .email-capture label {
       display: block;
@@ -350,7 +354,7 @@
       padding: 10px 20px;
       font-weight: 500;
       /* Ensure the download button spans the full width like the CTA */
-      width: 100%;
+      width: 60%;
       text-align: center;
       transition: border-color 0.2s ease, color 0.2s ease;
     }
@@ -369,6 +373,7 @@
       gap: 0.5rem;
       border-radius: 10px;
       font-weight: 500;
+      width: 60%;
     }
     .start-button:hover {
       background-color: #5D1E96;
@@ -382,6 +387,46 @@
       margin-top: 15px;
       font-size: 0.9rem;
       color: #777;
+    }
+    /* Custom Alert Modal Styling */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: none; /* Initially hidden */
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    .modal-content {
+      background: #fff;
+      padding: 20px 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      text-align: center;
+      max-width: 90%;
+      width: 400px;
+    }
+    .modal-content p {
+      margin-bottom: 20px;
+      color: #4B4F66;
+      font-size: 1rem;
+    }
+    .modal-content button {
+      background: #9333EA;
+      color: #fff;
+      border: none;
+      padding: 10px 30px;
+      border-radius: 10px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .modal-content button:hover {
+      background: #5D1E96;
     }
   </style>
 </head>
@@ -437,6 +482,14 @@
         <!-- Button to download the results instead of collecting an email address -->
         <button id="download-btn">Download Results</button>
       </div>
+    </div>
+  </div>
+
+  <!-- Custom Alert Modal -->
+  <div id="custom-alert" class="modal-overlay">
+    <div class="modal-content">
+      <p id="alert-message">Please select an answer before continuing.</p>
+      <button id="alert-close-btn">OK</button>
     </div>
   </div>
 
@@ -516,6 +569,8 @@
       const emailCapture = document.getElementById('email-capture');
       const emailLabel = document.getElementById('email-label');
       const downloadBtn = document.getElementById('download-btn');
+      const customAlert = document.getElementById('custom-alert');
+      const alertCloseBtn = document.getElementById('alert-close-btn');
 
       // Render a specific question by its index
       function renderQuestion(index) {
@@ -675,8 +730,7 @@
       nextBtn.addEventListener('click', function() {
         const selected = validateAnswer();
         if (!selected) {
-          // Using a more subtle way to notify the user, but alert is fine for this simple case.
-          alert('Please select an answer before continuing.');
+          customAlert.style.display = 'flex';
           return;
         }
         
@@ -727,6 +781,17 @@
         a.click();
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
+      });
+      
+      alertCloseBtn.addEventListener('click', function() {
+        customAlert.style.display = 'none';
+      });
+
+      // Also close the modal if the user clicks on the overlay
+      customAlert.addEventListener('click', function(event) {
+        if (event.target === customAlert) {
+          customAlert.style.display = 'none';
+        }
       });
 
       // Initial render is handled by the start button click
