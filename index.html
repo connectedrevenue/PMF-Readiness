@@ -528,7 +528,7 @@
           question: 'Have you had at least 5+ customers renew, refer, or expand usage?',
           options: [
             { label: '✅ Yes', value: 1 },
-            { label: '⚠️ Sort of (we’re seeing interest but no growth yet)', value: 0.5 },
+            { label: '⚠️ Sort of (we\'re seeing interest but no growth yet)', value: 0.5 },
             { label: '❌ No', value: 0 }
           ]
         },
@@ -689,21 +689,21 @@
       function computeResults(totalScore) {
         let title, message, ctaText, ctaLink, tagline;
         if (totalScore >= 4.0) {
-          title = '🟢 Strong PMF Signals';
-          message = 'Your product is resonating. You\'re seeing strong retention, clear ICP alignment, and true demand. Now it\'s about disciplined, intentional growth.';
-          tagline = 'You’ve Hit PMF. Time to Scale With Precision.';
+          title = '🟢 You\'re Ready to Grow, With Precision';
+          message = 'You\'re seeing strong traction, clear audience alignment, and real demand. It\'s time to operationalize growth, with discipline and focus.';
+          tagline = 'You\'ve got the signals — now scale with intent, not noise. Show investors you\'re ready to grow.';
           ctaText = 'Plan Your Scaling Strategy';
           ctaLink = 'https://contact.connectedrevenue.ai/#schedule';
         } else if (totalScore >= 2.0) {
-          title = '🟡 Partial PMF';
-          tagline = 'You’re Close, But PMF Isn’t Quite Locked.';
-          message = 'You’ve found initial traction, but gaps in ICP clarity, retention, or messaging are slowing you down. PMF is within reach—you just need to tighten the fit.';
+          title = '🟡 You\'re Close, But Not Quite There';
+          tagline = 'You\'re gaining traction — but gaps are slowing you down. Let\'s fix them before you scale too soon.';
+          message = 'You\'ve seen early signs of interest, but issues with audience clarity, retention, or messaging are holding you back. PMF is in sight, let\'s tighten the fit';
           ctaText = 'Schedule a PMF Review Session';
           ctaLink = 'https://contact.connectedrevenue.ai/#schedule';
         } else {
-          title = '🔴 Pre-PMF Warning';
-          tagline = 'Don’t Scale Yet, Product-Market Fit Is Missing.';
-          message = 'You may be targeting the wrong audience or misreading signals. Scaling now risks wasted time and spend. Let’s realign and get you on track.';
+          title = '🔴 You\'re Not Ready to Scale Yet';
+          tagline = 'You\'re moving — but without traction, you\'re burning time and budget. Let\'s pause, recalibrate, and rebuild your foundation.';
+          message = 'You might be targeting the wrong audience, missing retention signals, or reading false positives. Scaling now will only amplify what\'s broken.';
           ctaText = 'Book a Free Diagnostic Call';
           ctaLink = 'https://contact.connectedrevenue.ai/#schedule';
         }
@@ -736,12 +736,12 @@
         scoreSummary.textContent = `Score: ${totalScore.toFixed(1)} / 5`;
         ctaButton.innerHTML = `<a href="${results.ctaLink}" target="_blank">${results.ctaText}</a>`;
         
-        if (results.title === '🟢 Strong PMF Signals') {
-          emailLabel.textContent = 'Download your results to align your team and investors—and let’s build your GTM together.';
-        } else if (results.title === '🟡 Partial PMF') {
-          emailLabel.textContent = 'Let’s uncover what’s working, fix what’s not, and convert sparks into sustainable momentum.';
+        if (results.title === '🟢 You\'re Ready to Grow, With Precision') {
+          emailLabel.textContent = 'Download your results, align your team, and let\'s build a growth plan that works.';
+        } else if (results.title === '🟡 You\'re Close, But Not Quite There') {
+          emailLabel.textContent = 'We\'ll unpack what\'s working, what\'s not, and build momentum with more confidence.';
         } else {
-          emailLabel.textContent = 'We’ll help identify blind spots, validate assumptions, and create a clearer path to traction.';
+          emailLabel.textContent = 'We\'ll help you spot blind spots, validate assumptions, and realign your product with real demand.';
         }
         
         resultSection.style.display = 'block';
