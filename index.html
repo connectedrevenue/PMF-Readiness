@@ -272,6 +272,9 @@
       justify-content: space-between;
       margin-top: 20px;
     }
+    #quiz-section .button-wrapper.single-button {
+      justify-content: flex-end;
+    }
     button {
       background: #9333EA; /* default purple */
       color: #fff;
@@ -436,6 +439,14 @@
       .email-capture button,
       .start-button {
         width: 100%;
+      }
+      #quiz-section .button-wrapper {
+        display: flex;
+        gap: 10px;
+      }
+      #quiz-section .button-wrapper button {
+        flex-basis: 0;
+        flex-grow: 1;
       }
     }
   </style>
@@ -646,7 +657,14 @@
         questionDiv.appendChild(optionsContainer);
         questionContainer.appendChild(questionDiv);
 
-        backBtn.style.visibility = (index === 0) ? 'hidden' : 'visible';
+        const buttonWrapper = quizSection.querySelector('.button-wrapper');
+        if (index === 0) {
+          backBtn.style.display = 'none';
+          buttonWrapper.classList.add('single-button');
+        } else {
+          backBtn.style.display = 'inline-flex';
+          buttonWrapper.classList.remove('single-button');
+        }
         
         if (index === questions.length - 1) {
           nextBtn.innerHTML = `<svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="5 13 9 17 19 7"></polyline></svg><span>See Results</span>`;
