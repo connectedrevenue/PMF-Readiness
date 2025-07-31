@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PMF Readiness Scorecard</title>
+  <!-- Import DM Sans and Poppins fonts from Google Fonts to mirror the Connected Revenue site -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700&family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
@@ -16,21 +17,22 @@
       font-family: 'DM Sans', 'Inter', sans-serif;
     }
     body {
-      background: #f9f9fb;
+      /* Changed background color to white */
+      background: #ffffff;
       color: #333;
       display: flex;
       justify-content: center;
       align-items: flex-start;
-      padding: 40px 20px;
+      padding: 15px 20px;
       min-height: 100vh;
     }
     .scorecard {
       background: #fff;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      border-radius: 0px;
+      box-shadow: 0 0px 0px rgba(0,0,0,0.1);
       max-width: 700px;
       width: 100%;
-      padding: 30px 40px;
+      padding: 0px 0px;
       animation: fadeIn 0.6s ease;
     }
     @keyframes fadeIn {
@@ -61,6 +63,15 @@
       margin-bottom: 0.75rem;
       font-weight: 700;
       color: #1F1235;
+    }
+    .assessment-title {
+      text-align: center;
+      color: #5D1E96;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1.375em;
+      line-height: 1.125;
+      font-weight: 700;
+      margin-bottom: 1.5rem; /* Spacing below the title */
     }
     .welcome-page .intro {
       font-size: 1rem;
@@ -111,6 +122,7 @@
     }
     .button-wrapper.center {
       justify-content: center;
+      margin-top: 30px;
     }
 
     /* Progress bar styling */
@@ -145,7 +157,7 @@
     .question h2 {
       /* Style question headers to match Connected Revenue's Poppins styling */
       text-transform: uppercase;
-      color: #A0A7BD;
+      color: #5D1E96;
       font-family: 'Poppins', sans-serif;
       letter-spacing: 0.05rem;
       width: calc(100% + 0.05rem);
@@ -260,6 +272,9 @@
       justify-content: space-between;
       margin-top: 20px;
     }
+    #quiz-section .button-wrapper.single-button {
+      justify-content: flex-end;
+    }
     button {
       background: #9333EA; /* default purple */
       color: #fff;
@@ -282,11 +297,16 @@
     }
     .result-section {
       display: none;
-      margin-top: 20px;
+      margin-top: 0px;
     }
     .result-section h2 {
-      font-size: 1.6rem;
-      margin-bottom: 10px;
+      text-align: center;
+      color: #5D1E96;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1.375em;
+      line-height: 1.125;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
     }
     .result-section p.score {
       /* Emphasise the numeric score: use the same light grey as question headers */
@@ -295,6 +315,9 @@
       color: #A0A7BD;
       /* Display the score text in uppercase for consistency */
       text-transform: uppercase;
+    }
+    #result-message {
+      margin-top: 20px;
     }
     .result-section .cta {
       margin-top: 20px;
@@ -308,14 +331,18 @@
       font-weight: 600;
       /* Ensure CTA occupies full width so it aligns with the download button */
       display: block;
-      width: 100%;
+      width: 50%;
       text-align: center;
+      margin: 0 auto;
     }
     .cta a:hover {
       background: #5D1E96;
     }
     .email-capture {
       margin-top: 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
     .email-capture label {
       display: block;
@@ -334,7 +361,7 @@
       padding: 10px 20px;
       font-weight: 500;
       /* Ensure the download button spans the full width like the CTA */
-      width: 100%;
+      width: 50%;
       text-align: center;
       transition: border-color 0.2s ease, color 0.2s ease;
     }
@@ -353,6 +380,7 @@
       gap: 0.5rem;
       border-radius: 10px;
       font-weight: 500;
+      width: 40%;
     }
     .start-button:hover {
       background-color: #5D1E96;
@@ -367,20 +395,79 @@
       font-size: 0.9rem;
       color: #777;
     }
+    /* Custom Alert Modal Styling */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: none; /* Initially hidden */
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    .modal-content {
+      background: #fff;
+      padding: 20px 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      text-align: center;
+      max-width: 90%;
+      width: 400px;
+    }
+    .modal-content p {
+      margin-bottom: 20px;
+      color: #4B4F66;
+      font-size: 1rem;
+    }
+    .modal-content button {
+      background: #9333EA;
+      color: #fff;
+      border: none;
+      padding: 10px 30px;
+      border-radius: 10px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .modal-content button:hover {
+      background: #5D1E96;
+    }
+    
+    /* Mobile Styles */
+    @media (max-width: 768px) {
+      .cta a,
+      .email-capture button,
+      .start-button {
+        width: 100%;
+      }
+      #quiz-section .button-wrapper {
+        display: flex;
+        gap: 10px;
+      }
+      #quiz-section .button-wrapper button {
+        flex-basis: 0;
+        flex-grow: 1;
+      }
+    }
   </style>
   <script type="text/javascript">
-      (function(c,l,a,r,i,t,y){
-          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-      })(window, document, "clarity", "script", "sk6zrvqqik");
-  </script>
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "sk6zrvqqik");
+</script>
 </head>
 <body>
   <div class="scorecard" id="scorecard">
+    <!-- Welcome Page -->
     <div id="welcome-page" class="welcome-page">
+      <h2 class="assessment-title">Take The Assessment</h2>
       <div class="instructions">
-        <p>You don’t need another advisor telling you to “get to PMF.” You need to know if you’re there — or chasing the wrong signals.</p>
+      <p>You don’t need another advisor telling you to “get to PMF.” You need to know if you’re there — or chasing the wrong signals.</p>
         <p>This 2‑minute scorecard helps you diagnose:</p>
         <ul>
           <li>If your retention is real</li>
@@ -391,376 +478,362 @@
       </div>
       <div class="button-wrapper center">
         <button id="start-btn" class="start-button">
+          <!-- Inline SVG icon for right chevron -->
           <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
             <polyline points="8 5 16 12 8 19"></polyline>
           </svg>
-          <span>Start the Scorecard</span>
+          <span>Start</span>
         </button>
       </div>
     </div>
 
+    <!-- Question & Progress Container (hidden initially) -->
     <div id="quiz-section" class="hidden">
+      <!-- Progress Bar -->
       <div class="progress-bar"><div class="progress" id="progress" style="width: 0%;"></div></div>
+      <!-- Question container, dynamically updated -->
       <div id="question-container"></div>
+      <!-- Navigation buttons -->
       <div class="button-wrapper">
         <button id="back-btn" class="secondary">Back</button>
         <button id="next-btn">Next</button>
       </div>
     </div>
 
+    <!-- Result Section -->
     <div class="result-section" id="result-section">
       <h2 id="result-title"></h2>
       <p class="score" id="score-summary"></p>
       <p id="result-message"></p>
       <div class="cta" id="cta-button"></div>
+      <!-- Results download section -->
       <div class="email-capture" id="email-capture">
+        <!-- The label text will be set dynamically based on the score range -->
         <label id="email-label"></label>
+        <!-- Button to download the results instead of collecting an email address -->
         <button id="download-btn">Download Results</button>
       </div>
     </div>
   </div>
 
+  <!-- Custom Alert Modal -->
+  <div id="custom-alert" class="modal-overlay">
+    <div class="modal-content">
+      <p id="alert-message">Please select an answer before continuing.</p>
+      <button id="alert-close-btn">OK</button>
+    </div>
+  </div>
+
   <script>
-    // Data model for the scorecard
-    const questions = [
-      {
-        id: 'q1',
-        title: 'Retention & Usage',
-        question: 'Have you had at least 5+ customers renew, refer, or expand usage?',
-        options: [
-          { label: '✅ Yes', value: 1 },
-          { label: '⚠️ Sort of (we’re seeing interest but no growth yet)', value: 0.5 },
-          { label: '❌ No', value: 0 }
-        ]
-      },
-      {
-        id: 'q2',
-        title: 'Product Stickiness',
-        question: 'If you surveyed your users, what % would say they\'d be “very disappointed” if your product disappeared?',
-        options: [
-          { label: '✅ Over 40%', value: 1 },
-          { label: '⚠️ 20–39%', value: 0.5 },
-          { label: '❌ Under 20% or haven\'t surveyed', value: 0 }
-        ]
-      },
-      {
-        id: 'q3',
-        title: 'Organic Demand Signals',
-        question: 'Are you seeing any warm, unsolicited demand (referrals, organic signups, or inbound leads)?',
-        options: [
-          { label: '✅ Yes — we\'re getting it regularly', value: 1 },
-          { label: '⚠️ Some, but not consistently', value: 0.5 },
-          { label: '❌ No — everything is cold outbound or paid', value: 0 }
-        ]
-      },
-      {
-        id: 'q4',
-        title: 'ICP Fit & Conversion',
-        question: 'Are you consistently converting one clear type of customer?',
-        options: [
-          { label: '✅ Yes — we have a defined ICP that converts', value: 1 },
-          { label: '⚠️ Not quite — customers feel scattered', value: 0.5 },
-          { label: '❌ No — still experimenting with who to sell to', value: 0 }
-        ]
-      },
-      {
-        id: 'q5',
-        title: 'Internal Clarity',
-        question: 'Can everyone on your team clearly explain what core problem your product solves — in one sentence?',
-        options: [
-          { label: '✅ Yes', value: 1 },
-          { label: '⚠️ Kind of — depends who you ask', value: 0.5 },
-          { label: '❌ No', value: 0 }
-        ]
-      }
-    ];
-
-    let currentQuestionIndex = 0;
-    let answers = {};
-
-    // DOM references
-    const welcomePage = document.getElementById('welcome-page');
-    const startBtn = document.getElementById('start-btn');
-    const quizSection = document.getElementById('quiz-section');
-    const questionContainer = document.getElementById('question-container');
-    const progressBar = document.getElementById('progress');
-    const backBtn = document.getElementById('back-btn');
-    const nextBtn = document.getElementById('next-btn');
-    const resultSection = document.getElementById('result-section');
-    const resultTitle = document.getElementById('result-title');
-    const resultMessage = document.getElementById('result-message');
-    const scoreSummary = document.getElementById('score-summary');
-    const ctaButton = document.getElementById('cta-button');
-    const emailCapture = document.getElementById('email-capture');
-    // Label used to display messages for downloading results
-    const emailLabel = document.getElementById('email-label');
-    // Button used to download the results file
-    const downloadBtn = document.getElementById('download-btn');
-
-    // Render the first question
-    function renderQuestion(index) {
-      const q = questions[index];
-      if (!q) return;
-      questionContainer.innerHTML = '';
-      const questionDiv = document.createElement('div');
-      questionDiv.classList.add('question');
-      const title = document.createElement('h2');
-      title.textContent = q.title;
-      const questionText = document.createElement('p');
-      questionText.textContent = q.question;
-
-      const optionsContainer = document.createElement('div');
-      optionsContainer.classList.add('options');
-      q.options.forEach((opt) => {
-        const optionDiv = document.createElement('label');
-        optionDiv.classList.add('option');
-        const radio = document.createElement('input');
-        radio.type = 'radio';
-        radio.name = q.id;
-        radio.value = opt.value;
-        radio.dataset.label = opt.label;
-        // Pre-select if previously answered
-        if (answers[q.id] && answers[q.id].value === opt.value) {
-          radio.checked = true;
+    // This event listener ensures the script runs only after the entire HTML document has been loaded and parsed.
+    document.addEventListener('DOMContentLoaded', function() {
+      // Data model for the scorecard
+      const questions = [
+        {
+          id: 'q1',
+          title: 'Retention & Usage',
+          question: 'Have you had at least 5+ customers renew, refer, or expand usage?',
+          options: [
+            { label: '✅ Yes', value: 1 },
+            { label: '⚠️ Sort of (we\'re seeing interest but no growth yet)', value: 0.5 },
+            { label: '❌ No', value: 0 }
+          ]
+        },
+        {
+          id: 'q2',
+          title: 'Product Stickiness',
+          question: 'If you surveyed your users, what % would say they\'d be “very disappointed” if your product disappeared?',
+          options: [
+            { label: '✅ Over 40%', value: 1 },
+            { label: '⚠️ 20–39%', value: 0.5 },
+            { label: '❌ Under 20% or haven\'t surveyed', value: 0 }
+          ]
+        },
+        {
+          id: 'q3',
+          title: 'Organic Demand Signals',
+          question: 'Are you seeing any warm, unsolicited demand (referrals, organic signups, or inbound leads)?',
+          options: [
+            { label: '✅ Yes — we\'re getting it regularly', value: 1 },
+            { label: '⚠️ Some, but not consistently', value: 0.5 },
+            { label: '❌ No — everything is cold outbound or paid', value: 0 }
+          ]
+        },
+        {
+          id: 'q4',
+          title: 'ICP Fit & Conversion',
+          question: 'Are you consistently converting one clear type of customer?',
+          options: [
+            { label: '✅ Yes — we have a defined ICP that converts', value: 1 },
+            { label: '⚠️ Not quite — customers feel scattered', value: 0.5 },
+            { label: '❌ No — still experimenting with who to sell to', value: 0 }
+          ]
+        },
+        {
+          id: 'q5',
+          title: 'Internal Clarity',
+          question: 'Can everyone on your team clearly explain what core problem your product solves — in one sentence?',
+          options: [
+            { label: '✅ Yes', value: 1 },
+            { label: '⚠️ Kind of — depends who you ask', value: 0.5 },
+            { label: '❌ No', value: 0 }
+          ]
         }
-        // Append radio and label text
-        optionDiv.appendChild(radio);
-        const span = document.createElement('span');
-        // Determine if label contains custom icons and adjust accordingly
-        let labelText = opt.label;
-        if (labelText.trim().startsWith('✅')) {
-          optionDiv.classList.add('icon-check');
-          // remove the emoji from the visible text but keep dataset label unchanged
-          labelText = labelText.replace(/^✅\s*/, '');
-        } else if (labelText.trim().startsWith('❌')) {
-          optionDiv.classList.add('icon-cross');
-          labelText = labelText.replace(/^❌\s*/, '');
-        } else if (labelText.trim().startsWith('⚠️')) {
-          optionDiv.classList.add('icon-warning');
-          // remove the warning emoji from the text
-          labelText = labelText.replace(/^⚠️\s*/, '');
-        }
-        span.textContent = labelText;
-        optionDiv.appendChild(span);
-        // Mark this option as selected if its radio is checked
-        if (radio.checked) {
-          optionDiv.classList.add('selected');
-        }
-        // When the option row is clicked, select the radio and update selected state
-        optionDiv.addEventListener('click', function(event) {
-          event.preventDefault();
-          // Unselect all options for this question
-          const optionLabels = optionsContainer.querySelectorAll('.option');
-          optionLabels.forEach(lbl => lbl.classList.remove('selected'));
-          radio.checked = true;
-          optionDiv.classList.add('selected');
+      ];
+
+      let currentQuestionIndex = 0;
+      let answers = {};
+
+      // DOM references
+      const welcomePage = document.getElementById('welcome-page');
+      const startBtn = document.getElementById('start-btn');
+      const quizSection = document.getElementById('quiz-section');
+      const questionContainer = document.getElementById('question-container');
+      const progressBar = document.getElementById('progress');
+      const backBtn = document.getElementById('back-btn');
+      const nextBtn = document.getElementById('next-btn');
+      const resultSection = document.getElementById('result-section');
+      const resultTitle = document.getElementById('result-title');
+      const resultMessage = document.getElementById('result-message');
+      const scoreSummary = document.getElementById('score-summary');
+      const ctaButton = document.getElementById('cta-button');
+      const emailCapture = document.getElementById('email-capture');
+      const emailLabel = document.getElementById('email-label');
+      const downloadBtn = document.getElementById('download-btn');
+      const customAlert = document.getElementById('custom-alert');
+      const alertCloseBtn = document.getElementById('alert-close-btn');
+
+      // Render a specific question by its index
+      function renderQuestion(index) {
+        const q = questions[index];
+        if (!q) return;
+        questionContainer.innerHTML = '';
+        const questionDiv = document.createElement('div');
+        questionDiv.classList.add('question');
+        const title = document.createElement('h2');
+        title.textContent = q.title;
+        const questionText = document.createElement('p');
+        questionText.textContent = q.question;
+
+        const optionsContainer = document.createElement('div');
+        optionsContainer.classList.add('options');
+        q.options.forEach((opt) => {
+          const optionDiv = document.createElement('label');
+          optionDiv.classList.add('option');
+          const radio = document.createElement('input');
+          radio.type = 'radio';
+          radio.name = q.id;
+          radio.value = opt.value;
+          radio.dataset.label = opt.label;
+          
+          if (answers[q.id] && answers[q.id].value === opt.value) {
+            radio.checked = true;
+          }
+          
+          optionDiv.appendChild(radio);
+          const span = document.createElement('span');
+          
+          let labelText = opt.label;
+          if (labelText.trim().startsWith('✅')) {
+            optionDiv.classList.add('icon-check');
+            labelText = labelText.replace(/^✅\s*/, '');
+          } else if (labelText.trim().startsWith('❌')) {
+            optionDiv.classList.add('icon-cross');
+            labelText = labelText.replace(/^❌\s*/, '');
+          } else if (labelText.trim().startsWith('⚠️')) {
+            optionDiv.classList.add('icon-warning');
+            labelText = labelText.replace(/^⚠️\s*/, '');
+          }
+          span.textContent = labelText;
+          optionDiv.appendChild(span);
+          
+          if (radio.checked) {
+            optionDiv.classList.add('selected');
+          }
+          
+          optionDiv.addEventListener('click', function(event) {
+            event.preventDefault();
+            const optionLabels = optionsContainer.querySelectorAll('.option');
+            optionLabels.forEach(lbl => lbl.classList.remove('selected'));
+            radio.checked = true;
+            optionDiv.classList.add('selected');
+          });
+          optionsContainer.appendChild(optionDiv);
         });
-        optionsContainer.appendChild(optionDiv);
-      });
 
-      questionDiv.appendChild(title);
-      questionDiv.appendChild(questionText);
-      // Add a line break between the question and the options
-      const lineBreak = document.createElement('br');
-      questionDiv.appendChild(lineBreak);
-      questionDiv.appendChild(optionsContainer);
-      questionContainer.appendChild(questionDiv);
+        questionDiv.appendChild(title);
+        questionDiv.appendChild(questionText);
+        questionDiv.appendChild(document.createElement('br'));
+        questionDiv.appendChild(optionsContainer);
+        questionContainer.appendChild(questionDiv);
 
-      // Update back button visibility and next button text
-      if (index === 0) {
-        backBtn.style.visibility = 'hidden';
-      } else {
-        backBtn.style.visibility = 'visible';
+        const buttonWrapper = quizSection.querySelector('.button-wrapper');
+        if (index === 0) {
+          backBtn.style.display = 'none';
+          buttonWrapper.classList.add('single-button');
+        } else {
+          backBtn.style.display = 'inline-flex';
+          buttonWrapper.classList.remove('single-button');
+        }
+        
+        if (index === questions.length - 1) {
+          nextBtn.innerHTML = `<svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="5 13 9 17 19 7"></polyline></svg><span>See Results</span>`;
+        } else {
+          nextBtn.innerHTML = 'Next';
+        }
+        
+        const progressPercent = (index / questions.length) * 100;
+        progressBar.style.width = progressPercent + '%';
       }
-      if (index === questions.length - 1) {
-        // Last question: show "See My Results" with check icon
-        nextBtn.innerHTML = `<svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="5 13 9 17 19 7"></polyline></svg><span>See Results</span>`;
-      } else {
-        nextBtn.innerHTML = 'Next';
+
+      // Validate if an option is selected
+      function validateAnswer() {
+        const currentQ = questions[currentQuestionIndex];
+        return document.querySelector(`input[name="${currentQ.id}"]:checked`);
       }
-      // Update progress bar
-      const progressPercent = (index / questions.length) * 100;
-      progressBar.style.width = progressPercent + '%';
-    }
 
-    // Validate if an option is selected for the current question
-    function validateAnswer() {
-      const currentQ = questions[currentQuestionIndex];
-      const selectedRadio = document.querySelector(`input[name="${currentQ.id}"]:checked`);
-      return selectedRadio;
-    }
-
-    // Compute result message and CTA based on score
-    function computeResults(totalScore) {
-      let title, message, ctaText, ctaLink;
-      if (totalScore >= 4.0) {
-        // Top tier: strong PMF signals with custom tagline, message, and call to action
-        title = '🟢 Strong PMF Signals';
-        // Provide a descriptive message about retention, ICP fit and demand
-        message = 'Your product is resonating. You\'re seeing strong retention, clear ICP alignment, and true demand. Now it\'s about disciplined, intentional growth.';
-        // Additional tagline for top scores
-        var tagline = 'You’ve Hit PMF. Time to Scale With Precision.';
-        ctaText = 'Plan Your Scaling Strategy';
-        // Direct link to schedule a scaling strategy call
-        ctaLink = 'https://contact.connectedrevenue.ai/#schedule';
-        return { title, message, ctaText, ctaLink, tagline };
-      } else if (totalScore >= 2.0) {
-        // Mid tier: partial PMF with custom tagline, message, and call to action
-        title = '🟡 Partial PMF';
-        // Tagline to encourage refinement towards full PMF (corrected punctuation)
-        var tagline = 'You’re Close, But PMF Isn’t Quite Locked.';
-        message = 'You’ve found initial traction, but gaps in ICP clarity, retention, or messaging are slowing you down. PMF is within reach—you just need to tighten the fit.';
-        ctaText = 'Schedule a PMF Review Session';
-        // Use the same scheduling link for PMF review
-        ctaLink = 'https://contact.connectedrevenue.ai/#schedule';
-        return { title, message, ctaText, ctaLink, tagline };
-      } else {
-        // Bottom tier: pre-PMF warning with custom tagline, message, and call to action
-        title = '🔴 Pre-PMF Warning';
-        // Tagline to caution against premature scaling
-        var tagline = 'Don’t Scale Yet, Product-Market Fit Is Missing.';
-        message = 'You may be targeting the wrong audience or misreading signals. Scaling now risks wasted time and spend. Let’s realign and get you on track.';
-        ctaText = 'Book a Free Diagnostic Call';
-        // Use the scheduling link for diagnostic call
-        ctaLink = 'https://contact.connectedrevenue.ai/#schedule';
+      // Compute result message and CTA based on score
+      function computeResults(totalScore) {
+        let title, message, ctaText, ctaLink, tagline;
+        if (totalScore >= 4.0) {
+          title = '🟢 You\'re Ready to Grow, With Precision';
+          message = 'You\'re seeing strong traction, clear audience alignment, and real demand. It\'s time to operationalize growth, with discipline and focus.';
+          tagline = 'You\'ve got the signals — now scale with intent, not noise. Show investors you\'re ready to grow.';
+          ctaText = 'Plan Your Scaling Strategy';
+          ctaLink = 'https://contact.connectedrevenue.ai/#schedule';
+        } else if (totalScore >= 2.0) {
+          title = '🟡 You\'re Close, But Not Quite There';
+          tagline = 'You\'re gaining traction — but gaps are slowing you down. Let\'s fix them before you scale too soon.';
+          message = 'You\'ve seen early signs of interest, but issues with audience clarity, retention, or messaging are holding you back. PMF is in sight, let\'s tighten the fit';
+          ctaText = 'Schedule a PMF Review Session';
+          ctaLink = 'https://contact.connectedrevenue.ai/#schedule';
+        } else {
+          title = '🔴 You\'re Not Ready to Scale Yet';
+          tagline = 'You\'re moving — but without traction, you\'re burning time and budget. Let\'s pause, recalibrate, and rebuild your foundation.';
+          message = 'You might be targeting the wrong audience, missing retention signals, or reading false positives. Scaling now will only amplify what\'s broken.';
+          ctaText = 'Book a Free Diagnostic Call';
+          ctaLink = 'https://contact.connectedrevenue.ai/#schedule';
+        }
         return { title, message, ctaText, ctaLink, tagline };
       }
-      // Default return for completeness (should not be reached)
-      return { title, message, ctaText, ctaLink };
-    }
 
-    // Show results
-    function showResults() {
-      // Hide quiz section (progress bar, question container and navigation)
-      quizSection.style.display = 'none';
+      // Display the final results
+      function showResults() {
+        quizSection.style.display = 'none';
 
-      // Compute total score from answers
-      let totalScore = 0;
-      Object.keys(answers).forEach((id) => {
-        totalScore += answers[id].value;
+        let totalScore = Object.values(answers).reduce((sum, ans) => sum + ans.value, 0);
+        
+        const results = computeResults(totalScore);
+        resultTitle.textContent = results.title;
+
+        const existingTag = document.getElementById('result-tagline');
+        if (existingTag) existingTag.remove();
+
+        if (results.tagline) {
+          const taglineEl = document.createElement('p');
+          taglineEl.id = 'result-tagline';
+          taglineEl.textContent = results.tagline;
+          taglineEl.style.marginTop = '0.25rem';
+          taglineEl.style.fontWeight = '500';
+          taglineEl.style.color = '#4B4F66';
+          scoreSummary.insertAdjacentElement('afterend', taglineEl);
+        }
+        
+        resultMessage.textContent = results.message;
+        scoreSummary.textContent = `Score: ${totalScore.toFixed(1)} / 5`;
+        ctaButton.innerHTML = `<a href="${results.ctaLink}" target="_blank">${results.ctaText}</a>`;
+        
+        if (results.title === '🟢 You\'re Ready to Grow, With Precision') {
+          emailLabel.textContent = 'Download your results, align your team, and let\'s build a growth plan that works.';
+        } else if (results.title === '🟡 You\'re Close, But Not Quite There') {
+          emailLabel.textContent = 'We\'ll unpack what\'s working, what\'s not, and build momentum with more confidence.';
+        } else {
+          emailLabel.textContent = 'We\'ll help you spot blind spots, validate assumptions, and realign your product with real demand.';
+        }
+        
+        resultSection.style.display = 'block';
+      }
+
+      // Event Listeners
+      if (startBtn) {
+        startBtn.addEventListener('click', function() {
+          welcomePage.style.display = 'none';
+          quizSection.classList.remove('hidden');
+          currentQuestionIndex = 0;
+          answers = {};
+          renderQuestion(currentQuestionIndex);
+        });
+      }
+
+      nextBtn.addEventListener('click', function() {
+        const selected = validateAnswer();
+        if (!selected) {
+          customAlert.style.display = 'flex';
+          return;
+        }
+        
+        const currentQ = questions[currentQuestionIndex];
+        answers[currentQ.id] = {
+          label: selected.dataset.label,
+          value: parseFloat(selected.value)
+        };
+
+        currentQuestionIndex++;
+        if (currentQuestionIndex < questions.length) {
+          renderQuestion(currentQuestionIndex);
+        } else {
+          showResults();
+        }
       });
-      const results = computeResults(totalScore);
-      // Set the main heading
-      resultTitle.textContent = results.title;
-      // Remove any previous tagline element
-      const existingTag = document.getElementById('result-tagline');
-      if (existingTag) {
-        existingTag.remove();
-      }
-      // If a tagline is provided, insert it below the score summary rather than the heading
-      if (results.tagline) {
-        const taglineEl = document.createElement('p');
-        taglineEl.id = 'result-tagline';
-        taglineEl.textContent = results.tagline;
-        // basic styling to distinguish tagline
-        taglineEl.style.marginTop = '0.25rem';
-        taglineEl.style.fontWeight = '500';
-        taglineEl.style.color = '#4B4F66';
-        // Place the tagline after the score summary so it always appears beneath the score
-        scoreSummary.insertAdjacentElement('afterend', taglineEl);
-      }
-      // Set the main result message
-      resultMessage.textContent = results.message;
-      // Display the numeric score
-      scoreSummary.textContent = `Your PMF score: ${totalScore.toFixed(1)} / 5`;
-      // Update the CTA button
-      ctaButton.innerHTML = `<a href="${results.ctaLink}" target="_blank">${results.ctaText}</a>`;
-      // Adjust result copy for the download section based on the result type.  Remove the “Want a copy of your score?” text entirely.
-      if (results.title === '🟢 Strong PMF Signals') {
-        emailLabel.textContent = 'Download your results to align your team and investors—and let’s build your GTM together.';
-      } else if (results.title === '🟡 Partial PMF') {
-        emailLabel.textContent = 'Let’s uncover what’s working, fix what’s not, and convert sparks into sustainable momentum.';
-      } else if (results.title === '🔴 Pre-PMF Warning') {
-        emailLabel.textContent = 'We’ll help identify blind spots, validate assumptions, and create a clearer path to traction.';
-      } else {
-        // Generic message for any other scenario
-        emailLabel.textContent = 'Get your PMF results delivered to your inbox.';
-      }
-      // Finally show the result section
-      resultSection.style.display = 'block';
-    }
 
-    // Click handler for next/submit button
-    nextBtn.addEventListener('click', function() {
-      // Validate answer before proceeding
-      const selected = validateAnswer();
-      if (!selected) {
-        alert('Please select an answer before continuing.');
-        return;
-      }
-      // Save answer to answers object
-      const currentQ = questions[currentQuestionIndex];
-      answers[currentQ.id] = {
-        label: selected.dataset.label,
-        value: parseFloat(selected.value)
-      };
-
-      currentQuestionIndex++;
-      if (currentQuestionIndex < questions.length) {
-        renderQuestion(currentQuestionIndex);
-      } else {
-        // Show results on submit
-        showResults();
-      }
-    });
-
-    // Click handler for back button
-    backBtn.addEventListener('click', function() {
-      if (currentQuestionIndex > 0) {
-        currentQuestionIndex--;
-        renderQuestion(currentQuestionIndex);
-      }
-    });
-
-    // Download results handler: when the download button is clicked, assemble the results and prompt a file download
-    downloadBtn.addEventListener('click', function() {
-      // Prepare lines for the report
-      const lines = [];
-      lines.push('PMF Readiness Scorecard Results');
-      lines.push('');
-      // List each answer with its score
-      Object.keys(answers).forEach(qId => {
-        const questionObj = questions.find(q => q.id === qId);
-        const ans = answers[qId];
-        lines.push(`${questionObj.title}: ${ans.label} (Score: ${ans.value})`);
+      backBtn.addEventListener('click', function() {
+        if (currentQuestionIndex > 0) {
+          currentQuestionIndex--;
+          renderQuestion(currentQuestionIndex);
+        }
       });
-      lines.push('');
-      // Compute total score
-      let totalScoreForFile = 0;
-      Object.keys(answers).forEach(id => {
-        totalScoreForFile += answers[id].value;
+
+      downloadBtn.addEventListener('click', function() {
+        const lines = ['PMF Readiness Scorecard Results', ''];
+        let totalScoreForFile = 0;
+
+        questions.forEach(q => {
+          if(answers[q.id]) {
+            lines.push(`${q.title}: ${answers[q.id].label} (Score: ${answers[q.id].value})`);
+            totalScoreForFile += answers[q.id].value;
+          }
+        });
+
+        lines.push('', `Total PMF Score: ${totalScoreForFile.toFixed(1)} / 5`);
+        
+        const resultsData = computeResults(totalScoreForFile);
+        lines.push(`Result: ${resultsData.title}`);
+        lines.push(resultsData.message, `Next Step: ${resultsData.ctaText}`);
+        
+        const blob = new Blob([lines.join('\n')], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'pmf-score.txt';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
       });
-      lines.push('Total PMF Score: ' + totalScoreForFile.toFixed(1) + ' / 5');
-      // Append result classification and message
-      const resultsData = computeResults(totalScoreForFile);
-      lines.push('Result: ' + resultsData.title);
-      lines.push(resultsData.message);
-      // Append recommended next step
-      lines.push('Next Step: ' + resultsData.ctaText);
-      // Create a blob and trigger download
-      const blob = new Blob([lines.join('\n')], { type: 'text/plain' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'pmf-score.txt';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-    });
+      
+      alertCloseBtn.addEventListener('click', function() {
+        customAlert.style.display = 'none';
+      });
 
-    // Initialize
-    // Start button event: hide welcome page and show quiz
-    startBtn.addEventListener('click', function() {
-      welcomePage.style.display = 'none';
-      quizSection.classList.remove('hidden');
-      // Reset variables in case of restart
-      currentQuestionIndex = 0;
-      answers = {};
-      renderQuestion(currentQuestionIndex);
-    });
+      // Also close the modal if the user clicks on the overlay
+      customAlert.addEventListener('click', function(event) {
+        if (event.target === customAlert) {
+          customAlert.style.display = 'none';
+        }
+      });
 
-    // Initialize: start with welcome page visible
+      // Initial render is handled by the start button click
+    });
   </script>
 </body>
 </html>
